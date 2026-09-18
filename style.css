@@ -116,6 +116,14 @@ html {
   font-weight: 600;
 }
 
+/* Variante compacta para el encabezado de cada comentario */
+.avatar-circle.avatar-sm{
+  width: 32px;
+  height: 32px;
+  font-size: 0.95rem;
+  flex: 0 0 auto;
+}
+
 /* --- Iconos sociales del footer --- */
 .social-icon{
   opacity: 0.75;
