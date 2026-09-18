@@ -1,6 +1,7 @@
-
 <?php
     session_start();
+
+    $registro_error = '';
 
     if(  isset( $_POST['email'] ) && isset( $_POST['password'] )){
         require_once('conexion.php');
@@ -9,20 +10,28 @@
         $password = $_POST['password'];
         $cpassword = $_POST['password_confirm'];
 
-        if($password == $cpassword){
+        $nombre = mysqli_real_escape_string($conexion, trim($nombre));
+        $email = mysqli_real_escape_string($conexion, trim($email));
+        $password = mysqli_real_escape_string($conexion, $password);
 
-            $nombre = mysqli_real_escape_string($conexion, trim($nombre));
-            $email = mysqli_real_escape_string($conexion, trim($email));
-            $password = mysqli_real_escape_string($conexion, $password);
+        if($password != $cpassword){
+            $registro_error = '¡Ups! Las contraseñas no coinciden.';
+        } else {
 
-            $sql = "INSERT INTO usuarios (id_niveles, nombre_de_usuario, clave_de_acceso, email) VALUES (1, '$nombre', '$password', '$email')";
-            mysqli_query($conexion, $sql);
-            header('Location: index.php');
-            exit;
-        }else{
-            echo(
-                '<script>alert("¡Ups! Las contraseñas no coinciden")</script>'
-            );
+            $sql_existe = "SELECT id_usuario
+                           FROM usuarios
+                           WHERE email = '$email'";
+
+            $resultado_existe = mysqli_query($conexion, $sql_existe);
+
+            if( $resultado_existe && mysqli_num_rows($resultado_existe) > 0 ){
+                $registro_error = 'El correo electrónico ya se encuentra registrado.';
+            } else {
+                $sql = "INSERT INTO usuarios (id_niveles, nombre_de_usuario, clave_de_acceso, email) VALUES (1, '$nombre', '$password', '$email')";
+                mysqli_query($conexion, $sql);
+                header('Location: login.php?status=registered');
+                exit;
+            }
         }
     }
 ?>
@@ -55,6 +64,11 @@
             <h1 class="text-center text-white">Registrarme</h1>
 
                 <form action="registro.php" method="post" class="card p-4 m-1">
+
+                    <?php if(!empty($registro_error)): ?>
+                      <div class="alert alert-danger py-2 small text-center mb-3"><?php echo htmlspecialchars($registro_error, ENT_QUOTES, 'UTF-8'); ?></div>
+                    <?php endif; ?>
+
                     <label for="nombre">Nombre</label>
                     <input name="nombre" class="form-control" type="text">
 

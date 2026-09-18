@@ -2,7 +2,13 @@
      session_start();
 
      $login_error = '';
-     $logout_msg = (isset($_GET['status']) && $_GET['status'] === 'logout') ? 'Has cerrado sesión correctamente.' : '';
+     $status = $_GET['status'] ?? '';
+     $status_mensajes = array(
+         'logout'     => 'Has cerrado sesión correctamente.',
+         'registered' => '¡Cuenta creada con éxito! Ya podés iniciar sesión.',
+     );
+     $status_msg = $status_mensajes[$status] ?? '';
+     $status_clase = $status === 'registered' ? 'alert-success' : 'alert-info';
 
      if(  isset( $_POST['email'] ) && isset( $_POST['clave_de_acceso'] )){
          require_once('conexion.php');
@@ -67,8 +73,8 @@
 
                 <form action="login.php" method="post" class="card p-4 m-1">
 
-                    <?php if(!empty($logout_msg)): ?>
-                      <div class="alert alert-info py-2 small text-center mb-3"><?php echo $logout_msg; ?></div>
+                    <?php if(!empty($status_msg)): ?>
+                      <div class="alert <?php echo $status_clase; ?> py-2 small text-center mb-3"><?php echo $status_msg; ?></div>
                     <?php endif; ?>
 
                     <?php if(!empty($login_error)): ?>

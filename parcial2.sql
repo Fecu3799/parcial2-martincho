@@ -49,7 +49,7 @@ INSERT INTO `comentarios` (`id_usuario`, `likes`, `respuestas`, `id_trabajos`, `
 (6, 21, 'Que bella que es Amapola.', 6, '2022-09-29', 7),
 (7, 69, 'Un revistero me acosó el otro día.', 7, '2022-09-29', 8),
 (8, 131, 'No quiero jugar más a la unviersidad.', 8, '2022-09-28', 9),
-(17, 0, 'asduiguiqw', 2, '2022-12-02', 11);
+(15, 0, 'asduiguiqw', 2, '2022-12-02', 11);
 
 -- --------------------------------------------------------
 
@@ -140,9 +140,7 @@ INSERT INTO `trabajos` (`id_trabajos`, `id_usuario`, `titulo`, `likes`, `comenta
 (7, 10, 'Publicidad Natura línea Ekos', 0, '0', 0, 'La línea Natura Ekos obtiene su riqueza del árbol de castaña. Por esto, considerado el rey de la selva amazónica y una de las principales fuentes de proteínas de esta comunidad. El uso de ésta, ayuda a impulsar su cosecha, haciendo ésta, una practica tradicional.', '2022-08-04', 'img/natura.jpg', 'img/perfume.jpeg'),
 (8, 7, 'Corto Publicitario', 0, '0', 0, 'Corto publicitario para Mattel, en el año 2022. Campaña \"Nuevas aventuras\". Acompaña a los chicos en diversas etapas de desarrollo, para que aprendan mientras juegan.', '2022-09-26', 'img/mattel_logo.jpeg', 'img/mattel.jpeg'),
 (9, 8, 'Poster Volver al Futuro ', 0, '0', 0, 'Película estadounidense de ciencia ficción y comedia de 1985 dirigida y escrita por Robert Zemeckis —Bob Gale también colaboró como guionista—, producida por Steven Spielberg y protagonizada por Michael J. Fox, Christopher Lloyd, Lea Thompson, Crispin Glover y Thomas F. Wilson.', '2022-09-13', 'img/future.jpg', 'img/future.jpg'),
-(10, 9, 'Publicidad gráfica Nike', 0, '0', 0, 'La razón de nuestra existencia es prestar un servicio a los atletas, por lo que nos atrevemos a diseñar el futuro del deporte. Para nosotros, la innovación tiene que ver con mejorar el potencial humano.', '2022-09-09', 'img/nike.jpg', 'img/nike.jpg'),
-(16, 17, 'Hola', 0, '', 0, 'Post numero 1', '2022-12-02', 'img/', ''),
-(17, 17, 'Hola 2', 0, '', 0, 'Post numero 2', '2022-12-02', 'img/', '');
+(10, 9, 'Publicidad gráfica Nike', 0, '0', 0, 'La razón de nuestra existencia es prestar un servicio a los atletas, por lo que nos atrevemos a diseñar el futuro del deporte. Para nosotros, la innovación tiene que ver con mejorar el potencial humano.', '2022-09-09', 'img/nike.jpg', 'img/nike.jpg');
 
 -- --------------------------------------------------------
 
@@ -155,7 +153,8 @@ CREATE TABLE `usuarios` (
   `id_niveles` int(11) NOT NULL,
   `nombre_de_usuario` varchar(64) NOT NULL,
   `clave_de_acceso` decimal(65,0) NOT NULL,
-  `email` varchar(128) DEFAULT NULL
+  `email` varchar(128) DEFAULT NULL,
+  UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -173,14 +172,9 @@ INSERT INTO `usuarios` (`id_usuario`, `id_niveles`, `nombre_de_usuario`, `clave_
 (8, 1, 'Santiago Cuneo', '0', 'santiago_bobi@hotmail.com'),
 (9, 1, 'Armando Paredes', '0', 'armando_tu_vida@hotmail.com'),
 (10, 1, 'Florencia Peña', '0', 'yo_soy_moni_argento@hotmail.com'),
-(15, 1, 'Amapola', '123', 'test@mail.com'),
-(16, 1, 'Amapola', '123', 'test@mail.com'),
-(17, 1, 'Amapola', '1234', 'test@mail.com'),
-(18, 1, 'Amapola', '1234', 'test@mail.com'),
+(15, 1, 'Amapola', '1234', 'test@mail.com'),
 (19, 1, 'Ari', '1234', 'test2@mail.com'),
-(20, 1, 'Ari', '1234', 'test2@mail.com'),
-(21, 1, 'Elida Maribel', '1234', 'test3@mail.com'),
-(22, 1, 'Elida Maribel', '1234', 'test3@mail.com');
+(21, 1, 'Elida Maribel', '1234', 'test3@mail.com');
 
 --
 -- Índices para tablas volcadas
