@@ -1,5 +1,12 @@
+<?php
+    // El footer completo solo se muestra en la portada. El resto de la pagina
+    // (cierre de wrappers y de <body>/<html>) se emite siempre, porque todas
+    // las vistas dependen de este archivo para cerrar el documento.
+    $es_inicio = basename($_SERVER['SCRIPT_NAME']) === 'index.php';
+?>
     </div><!-- /.flex-grow-1 -->
 
+<?php if( $es_inicio ): ?>
     <footer class="mt-auto bg-dark text-light pt-5 pb-4 border-top border-secondary">
         <div class="container">
             <div class="row g-4">
@@ -58,6 +65,7 @@
             </div>
         </div>
     </footer>
+<?php endif; ?>
 
 </body>
 </html>
