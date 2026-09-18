@@ -1,20 +1,23 @@
-<?php 
+<?php
      session_start();
+
+     $login_error = '';
+     $logout_msg = (isset($_GET['status']) && $_GET['status'] === 'logout') ? 'Has cerrado sesión correctamente.' : '';
 
      if(  isset( $_POST['email'] ) && isset( $_POST['clave_de_acceso'] )){
          require_once('conexion.php');
          $email = mysqli_real_escape_string($conexion, trim($_POST['email']));
          $password = mysqli_real_escape_string($conexion, trim($_POST['clave_de_acceso']));
- 
+
          $sql = "SELECT id_usuario, clave_de_acceso, email, nombre_de_usuario
                  FROM usuarios
                  WHERE email = '$email' AND clave_de_acceso = '$password'";
- 
+
          $resultado = mysqli_query($conexion, $sql);
-        
- 
+
+
          $array = mysqli_fetch_assoc($resultado);
-         
+
          if(  $array ){
              $email = $array['email'];
              $password = $array['clave_de_acceso'];
@@ -22,20 +25,22 @@
              $nombre = $array['nombre_de_usuario'];
 
 
- 
+
              $_SESSION['email'] = $email;
              $_SESSION['clave_de_acceso'] = $password;
              $_SESSION['id_usuario'] = $id_usuario;
              $_SESSION['nombre'] = $nombre;
 
 
- 
+
              header('Location: index.php');
- 
+
+         } else {
+             $login_error = 'Usuario o contraseña incorrectos';
          }
-         
+
      }
-    
+
 ?>
 
 
@@ -49,17 +54,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
   </head>
   <body>
-   
+
     <div class="bg"></div>
     <div class="bg bg2"></div>
     <div class="bg bg3"></div>
-   
-    <?php if(!empty($message)): ?>
-      <p> <?= $message ?></p>
-    <?php endif; ?>
 
-   
-    
     <main class="container">
         <div class="row mt-4">
             <div class="col"></div>
@@ -67,8 +66,15 @@
             <h1 class="text-center text-white">Inicio de sesión</h1>
 
                 <form action="login.php" method="post" class="card p-4 m-1">
-                    
-                    
+
+                    <?php if(!empty($logout_msg)): ?>
+                      <div class="alert alert-info py-2 small text-center mb-3"><?php echo $logout_msg; ?></div>
+                    <?php endif; ?>
+
+                    <?php if(!empty($login_error)): ?>
+                      <div class="alert alert-danger py-2 mt-2"><?php echo $login_error; ?></div>
+                    <?php endif; ?>
+
                     <label for="email">Email</label>
                     <input name="email" class="form-control" type="email">
 
@@ -82,8 +88,8 @@
             <div class="col"></div>
         </div>
     </main>
-    
-    
-    
+
+
+
   </body>
 </html>

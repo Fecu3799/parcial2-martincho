@@ -10,27 +10,30 @@
     require_once('conexion.php');
 ?>
 
-<div class="container">
-        <h1 class="text-center text-light">Nuevo post</h1>
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <form action="postCrear.php" method="post" enctype="multipart/form-data" class="card p-4">
-                    <label for="titulo">Titulo</label>
-                    <input name="titulo" type="text" class="form-control">
+<div class="container min-vh-100 d-flex align-items-center justify-content-center py-5">
+    <div class="card-dark p-4 p-md-5 w-100" style="max-width:560px;">
+        <h1 class="h3 text-center mb-4">Nuevo post</h1>
 
-                    <label for="contenido">Detalle</label>
-                    <input name="contenido" type="text" class="form-control">
-
-                    <label for="foto">Foto</label>
-                    <input name="foto" type="file" class="form-control">
-
-                    <button type="submit" class="btn btn-warning mt-2">Guardar</button>
-                </form>
+        <form action="postCrear.php" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="titulo" class="form-label">Título</label>
+                <input name="titulo" id="titulo" type="text" class="form-control bg-dark text-white border-secondary" required>
             </div>
-            <div class="col-md-4"></div>
-        </div>
+
+            <div class="mb-3">
+                <label for="contenido" class="form-label">Detalle</label>
+                <textarea name="contenido" id="contenido" class="form-control bg-dark text-white border-secondary" rows="4" placeholder="Describe tu proyecto..." required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="foto" class="form-label">Foto</label>
+                <input name="foto" id="foto" type="file" class="form-control bg-dark text-white border-secondary">
+            </div>
+
+            <button type="submit" class="btn btn-warning w-100 mt-2">Guardar</button>
+        </form>
     </div>
+</div>
 
 <?php
     require_once('template/footer.php');
